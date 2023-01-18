@@ -23,6 +23,5 @@ string_database_experimental_filtered <- string_database_experimental %>% filter
 string_database_experimental_filtered$protein1 <- gsub("4932.", "\\1", string_database_experimental_filtered$protein1) # Remove '4932.' do nome dos genes
 string_database_experimental_filtered$protein2 <- gsub("4932.", "\\1", string_database_experimental_filtered$protein2) # Remove '4932.' do nome dos genes
 
-
-
-
+### Adicionar nome do gene para cada ORF
+library(dplyr) # Biblioteca para manipulação de dados

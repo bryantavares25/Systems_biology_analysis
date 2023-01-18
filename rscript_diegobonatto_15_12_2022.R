@@ -21,18 +21,14 @@ string_database_experimental_b$protein2<-gsub("4932.", "\\1",string_database_exp
 
 ##Add gene name for each ORF##
 library(dplyr)
-ORF_Genes_names_processed_update_2019 <-
-  read.delim("ORF_Genes_names_processed_update_2019.tsv",
-             stringsAsFactors=FALSE)
-ORF_Genes_names_processed_update_2019$Feature<-sapply(ORF_Genes_names_processed_update_2019$Feature,
-                                                      function(f){is.na(f)<-which(f == '');f}) #Completing empty rows from
+ORF_Genes_names_processed_update_2019 <- read.delim("ORF_Genes_names_processed_update_2019.tsv", stringsAsFactors=FALSE)
+ORF_Genes_names_processed_update_2019$Feature<-sapply(ORF_Genes_names_processed_update_2019$Feature, function(f){is.na(f)<-which(f == '');f}) #Completing empty rows from
 ORF_Genes_names information from YeastMine
 ORF_Genes_names_processed_update_2019$Feature[is.na(ORF_Genes_names_processed_update_2019$Feature)]<-as.character(ORF_Genes_names_processed_update_2019$Genes[is.na(ORF_Genes_names_processed_update_2019$Feature)])
-string_database_experimental_c<-left_join(string_database_experimental_b,
-                                          ORF_Genes_names_processed_update_2019, by=c("protein1"="Genes"))
+string_database_experimental_c<-left_join(string_database_experimental_b, ORF_Genes_names_processed_update_2019, by=c("protein1"="Genes"))
+
 #merging string_database_experimental_b with ORF_Genes_names information from YeastMine
-string_database_experimental_c_2<-left_join(string_database_experimental_b,
-                                            ORF_Genes_names_processed_update_2019, by=c("protein2"="Genes"))
+string_database_experimental_c_2<-left_join(string_database_experimental_b, ORF_Genes_names_processed_update_2019, by=c("protein2"="Genes"))
 #merging string_database_experimental_b with ORF_Genes_names information from YeastMine
 string_database_experimental_c$Feature_2<-cbind(string_database_experimental_c_2$Feature)
 
