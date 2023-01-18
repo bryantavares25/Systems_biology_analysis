@@ -16,10 +16,16 @@ string_database_experimental$s_exp_nop = (string_database_experimental$experimen
 string_database_experimental$s_db_nop <- ifelse(string_database_experimental$s_db_nop < 0, 0, string_database_experimental$s_db_nop)
 string_database_experimental$s_exp_nop <- ifelse(string_database_experimental$s_exp_nop < 0, 0, string_database_experimental$s_exp_nop)
 
-# Calculo do escore combinado de valores de banco de dados e dados experimentais
+# Cálculo do escore combinado de valores de banco de dados e dados experimentais
 string_database_experimental$s_tot_nop = 1-(1-string_database_experimental$s_exp_nop)*(1-string_database_experimental$s_db_nop)
 string_database_experimental$combined_score = string_database_experimental$s_tot_nop + 0.041*(1-string_database_experimental$s_tot_nop)
 string_database_experimental$combined_score <- ifelse(string_database_experimental$combined_score == 0.041, 0, string_database_experimental$combined_score)
+string_database_experimental$combined_score <- signif(string_database_experimental$combined_score,digits=3)
+
+# Filtragem de dados através do valor de escore combinado
+string_database_experimental_filtered <- string_database_experimental %>% filter(combined_score>=0.4) # '%>%' (pipe - canalização) é definido por CRAN
+
+
 
 
 
