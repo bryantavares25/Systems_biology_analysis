@@ -3,7 +3,7 @@
 ## Dados do Interatoma <- STRING 11.0
 
 ## Baixar dados do versão mais atualizada do arquivo de interatoma do STRING contendo subescores por canal e abrir em R
-'295358.protein.links.detailed.v11.5' <- read.delim('/home/bryan/Documentos/R/295358.protein.links.detailed.v11.5.txt', sep='', stringsAsFactors=FALSE)
+'295358.protein.links.detailed.v11.5' <- read.delim('/home/bryan/Documentos/GitHub/Systems_biology_analysis/295358.protein.links.detailed.v11.5.txt', sep='', stringsAsFactors=FALSE)
 string_database_experimental <- subset('295358.protein.links.detailed.v11.5', select = c(1, 2, 7, 8))
 
 # Normalização de banco de dados e dados experimentais 
