@@ -10,6 +10,7 @@ string_database_experimental$s_exp_nop =(string_database_experimental$experiment
 string_database_experimental$s_db_nop =(string_database_experimental$database - 0.041)/(1-0.041)
 string_database_experimental$s_exp_nop<-ifelse(string_database_experimental$s_exp_nop < 0, 0, string_database_experimental$s_exp_nop)
 string_database_experimental$s_db_nop<-ifelse(string_database_experimental$s_db_nop < 0, 0, string_database_experimental$s_db_nop)
+
 string_database_experimental$s_tot_nop = 1-(1-string_database_experimental$s_exp_nop)*(1-string_database_experimental$s_db_nop)
 string_database_experimental$combined_score = string_database_experimental$s_tot_nop + 0.041*(1-string_database_experimental$s_tot_nop)
 string_database_experimental$combined_score<-ifelse(string_database_experimental$combined_score == 0.041, 0, string_database_experimental$combined_score)
