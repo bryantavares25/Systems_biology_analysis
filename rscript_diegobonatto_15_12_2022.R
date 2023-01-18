@@ -16,8 +16,8 @@ string_database_experimental$combined_score = string_database_experimental$s_tot
 string_database_experimental$combined_score<-ifelse(string_database_experimental$combined_score == 0.041, 0, string_database_experimental$combined_score)
 string_database_experimental$combined_score <- signif(string_database_experimental$combined_score,digits=3)
 string_database_experimental_b<-string_database_experimental %>% filter(combined_score>=0.4) #Filter data using combined_score
-string_database_experimental_b$protein1<-gsub("4932.", "\\1", string_database_experimental_b$protein1) #Remove "4932." number from
-gene names string_database_experimental_b$protein2<-gsub("4932.", "\\1",string_database_experimental_b$protein2)
+string_database_experimental_b$protein1<-gsub("4932.", "\\1", string_database_experimental_b$protein1) #Remove "4932." number from gene names
+string_database_experimental_b$protein2<-gsub("4932.", "\\1",string_database_experimental_b$protein2)
 
 ##Add gene name for each ORF##
 library(dplyr)
