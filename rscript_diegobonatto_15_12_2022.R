@@ -3,7 +3,7 @@
 ##Download the last interactome file from STRING containing subscores per channel and open in R##
 
 '4932.protein.links.detailed.v11.0' <- read.delim("4932.protein.links.detailed.v11.0.txt", sep="", stringsAsFactors=FALSE)
-string_database_experimental<-subset(`4932.protein.links.detailed.v11.0`,select = c(1, 2, 7, 8))
+string_database_experimental<-subset(`4932.protein.links.detailed.v11.0`, select = c(1, 2, 7, 8))
 string_database_experimental$experimental<-string_database_experimental$experimental/1000
 string_database_experimental$database<-string_database_experimental$database/1000
 string_database_experimental$s_exp_nop =(string_database_experimental$experimental - 0.041)/(1-0.041)
@@ -22,9 +22,8 @@ string_database_experimental_b$protein2<-gsub("4932.", "\\1",string_database_exp
 ##Add gene name for each ORF##
 library(dplyr)
 ORF_Genes_names_processed_update_2019 <- read.delim("ORF_Genes_names_processed_update_2019.tsv", stringsAsFactors=FALSE)
-ORF_Genes_names_processed_update_2019$Feature<-sapply(ORF_Genes_names_processed_update_2019$Feature, function(f){is.na(f)<-which(f == '');f}) #Completing empty rows from
-ORF_Genes_names information from YeastMine
-ORF_Genes_names_processed_update_2019$Feature[is.na(ORF_Genes_names_processed_update_2019$Feature)]<-as.character(ORF_Genes_names_processed_update_2019$Genes[is.na(ORF_Genes_names_processed_update_2019$Feature)])
+ORF_Genes_names_processed_update_2019$Feature<-sapply(ORF_Genes_names_processed_update_2019$Feature, function(f){is.na(f)<-which(f == '');f}) #Completing empty rows from /ORF_Genes_names information from YeastMine
+ORF_Genes_names_processed_update_2019$Feature[is.na(ORF_Genes_names_processed_update_2019$Feature)] <- as.character(ORF_Genes_names_processed_update_2019$Genes[is.na(ORF_Genes_names_processed_update_2019$Feature)])
 string_database_experimental_c<-left_join(string_database_experimental_b, ORF_Genes_names_processed_update_2019, by=c("protein1"="Genes"))
 
 #merging string_database_experimental_b with ORF_Genes_names information from YeastMine
@@ -40,10 +39,8 @@ write.table(cbind(rownames(graph_string_db_exp),graph_string_db_exp),
             file = 'graph_string_db_exp.txt', sep='\t', row.names=F, quote=F)
 ###In Cytoscape environment import network from 'graph_string_db_exp.txt'###
 
-##################################################################################################################################################################################
-# Commands to generate a subgraph named "ALP_network" from
-"graph_string_db_exp" containing the shortest pathways among the DEGs
-from ALP_9423_10205_16376_pan_DEGs_metalogFC_SD #
+################################################################################################################################################################################
+# Commands to generate a subgraph named "ALP_network" from "graph_string_db_exp" containing the shortest pathways among the DEGs from ALP_9423_10205_16376_pan_DEGs_metalogFC_SD #
 ##################################################################################################################################################################################
 
 library(RCy3)
@@ -51,19 +48,16 @@ library(igraph)
 
 ##Reimport "graph_string_db_exp" from Cytoscape to igraph##
 
-g<-createIgraphFromNetwork()
-string_graph<-g
-string_graph<-as.undirected(string_graph, mode = "collapse")
-key_vertices_ALP <-
-  as.vector(ALP_9423_10205_16376_pan_DEGs_metalogFC_SD$Feature)
-match(key_vertices_ALP,V(string_graph)$name) #Verify if all gene names
-in key_vertices_ALP are present in graph "string_graph"
-match_ls<-match(key_vertices_ALP,V(string_graph)$name)
-data_lsb<-data.frame(key_vertices_ALP,match_ls)
+g <- createIgraphFromNetwork() 
+string_graph <-g
+string_graph <-as.undirected(string_graph, mode = "collapse")
+key_vertices_ALP <- as.vector(ALP_9423_10205_16376_pan_DEGs_metalogFC_SD$Feature)
+match(key_vertices_ALP,V(string_graph)$name) #Verify if all gene names in key_vertices_ALP are present in graph "string_graph"
+match_ls <- match(key_vertices_ALP,V(string_graph)$name)
+data_lsb <- data.frame(key_vertices_ALP,match_ls)
 data_lsb[is.na(data_lsb$match_ls),]
-remove<-c("FAT3","IZH2","IZH4","MZM1","OPI10","PPX1","TMA17") #Remove
-list with unmatched genes in g
-key_vertices_ALP<-subset(key_vertices_ALP, !(key_vertices_ALP %in% remove))
+remove <- c("FAT3","IZH2","IZH4","MZM1","OPI10","PPX1","TMA17") #Remove list with unmatched genes in g
+key_vertices_ALP <- subset(key_vertices_ALP, !(key_vertices_ALP %in% remove))
 get_path <- function(x){
   # Get atomic vector of two key verteces and return their shortest
   path as vector.
