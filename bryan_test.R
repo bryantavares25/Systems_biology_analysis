@@ -1,6 +1,6 @@
 #### Aprendendo R ####
 
-'295358.protein.links.detailed.v11.5' <- read.delim("295358.protein.links.detailed.v11.5.txt", sep="", stringsAsFactors=FALSE)
+'295358.protein.links.detailed.v11.5' <- read.delim("/home/bryan/Documentos/GitHub/Systems_biology_analysis/295358.protein.links.detailed.v11.5.txt", sep="", stringsAsFactors=FALSE)
 
 string_database_experimental <- subset(`295358.protein.links.detailed.v11.5`, select = c(1, 2, 7, 8))
 
